@@ -22,9 +22,9 @@ const App = () => {
   const [isOpen, setOpen] = useState(false)
   const navigate = useNavigate()
   
-  const closeModal = () => setOpen(false)
-  
+
   const closeCard = () => {
+    setOpen(false);
 
   }
 
@@ -51,11 +51,10 @@ const App = () => {
     }
   }
 
-  const viewTrailer = (movie) => {
-    getMovie(movie.id)
-    if (!videoKey) setOpen(true)
-    setOpen(true)
-  }
+  const viewTrailer = async (movie) => {
+    await getMovie(movie.id);
+    setOpen(true);
+  };
 
   const getMovie = async (id) => {
     const URL = `${ENDPOINT}/movie/${id}?api_key=${API_KEY}&append_to_response=videos`
@@ -76,15 +75,12 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header searchMovies={searchMovies} searchParams={searchParams} setSearchParams={setSearchParams} />
+      <Header searchMovies={searchMovies} />
 
       <div className="container">
-        {videoKey ? (
-          <YouTubePlayer
-            videoKey={videoKey}
-          />
-        ) : (
-          <div style={{padding: "30px"}}><h6>no trailer available. Try another movie</h6></div>
+        
+        {isOpen && (
+          <YouTubePlayer videoKey={videoKey} onClose={() => setOpen(false)} />
         )}
 
         <Routes>
@@ -93,6 +89,10 @@ const App = () => {
           <Route path="/watch-later" element={<WatchLater viewTrailer={viewTrailer} />} />
           <Route path="*" element={<h1 className="not-found">Page Not Found</h1>} />
         </Routes>
+
+        
+
+        
       </div>
     </div>
   )
