@@ -15,6 +15,24 @@
         padding: 0 6px;
         margin-bottom: 2rem;
     }
+    .movies-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1rem;
+    
+        @media (max-width: 1200px) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    
+        @media (max-width: 992px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    
+        @media (max-width: 576px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
 
     .card, 
     .card *,
@@ -56,9 +74,10 @@
             height: 85px;
             padding: 5px;
             margin-bottom: 5px;
-            overflow: scroll;
+            overflow-y: auto;
             font-size: 0.7rem;
             line-height: 105%;
+            
     
             @media (max-width: 720px) {
                 height: 60px;
