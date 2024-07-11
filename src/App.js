@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Routes, Route, createSearchParams, useSearchParams, useNavigate } from "react-router-dom"
-import { useDispatch } from 'react-redux'
+import { useDispatch} from 'react-redux'
 import 'reactjs-popup/dist/index.css'
 import { fetchMovies } from './data/moviesSlice'
 import { ENDPOINT_SEARCH, ENDPOINT_DISCOVER, ENDPOINT, API_KEY } from './constants'
@@ -36,13 +36,6 @@ const App = () => {
     getSearchResults(query)
   }
 
-  const getMovies = () => {
-    if (searchQuery) {
-        dispatch(fetchMovies(`${ENDPOINT_SEARCH}&query=`+searchQuery))
-    } else {
-        dispatch(fetchMovies(ENDPOINT_DISCOVER))
-    }
-  }
 
   const viewTrailer = async (movie) => {
     await getMovie(movie.id);
@@ -62,9 +55,7 @@ const App = () => {
     }
   }
 
-  useEffect(() => {
-    getMovies()
-  }, [])
+ 
 
   return (
     <div className="App">
