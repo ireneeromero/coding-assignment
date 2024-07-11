@@ -1,7 +1,9 @@
 import Movie from './Movie'
 import '../styles/movies.scss'
+import { useSelector } from 'react-redux'
 
-const Movies = ({ movies, viewTrailer, closeCard }) => {
+const Movies = ({ viewTrailer }) => {
+    const movies = useSelector((state) => state.movies)
 
     return (
         <div className="movies-grid" data-testid="movies">
@@ -11,7 +13,6 @@ const Movies = ({ movies, viewTrailer, closeCard }) => {
                         movie={movie} 
                         key={movie.id}
                         viewTrailer={viewTrailer}
-                        closeCard={closeCard}
                     />
                 )
             })}

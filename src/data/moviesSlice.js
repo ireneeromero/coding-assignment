@@ -1,8 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
-export const fetchMovies = createAsyncThunk('fetch-movies', async (apiUrl) => {
-    const response = await fetch(apiUrl)
-    return response.json()
+export const fetchMovies = createAsyncThunk('fetch-movies', async (apiUrl, { rejectWithValue }) => {
+    try {
+        const response = await fetch(apiUrl)
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json()
+        return data
+    } catch (error) {
+        console.error("Error fetching movies:", error);
+        return rejectWithValue(error.message)
+    }
 })
 
 const moviesSlice = createSlice({
